@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>关于 | Liangsj</title>
+<title>hadoop 高可用配置 | Liangsj</title>
 <meta name="description" content="个人博客">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -107,14 +107,62 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">关于</h2>
-            <div class="post-date">2019-01-25</div>
+            <h2 class="post-title">hadoop 高可用配置</h2>
+            <div class="post-date">2019-07-05</div>
             
             <div class="post-content">
-              <p>这是关于的页面，可以在这里向世界介绍你！</p>
+              <p>Hadoop1,只有一个NameNode，不可靠，容易单点故障。</p>
+<p>Hddoop2后，使用高可用，可配置2个NameNode，一个活动，一个备用，
+Hddoop2后，使用高可用，可配置2个NameNode，一个活动，一个备用，</p>
+<p>当活动NameNode出现问题时，备用NameNode可手工或自动切换为活动状态</p>
+<p>下面配置高可用:</p>
+<p><a href="https://www.cloudera.com/documentation/enterprise/latest/topics/cdh_hag_hdfs_ha_config.html">官方文档</a></p>
+<h3 id="增加开启高可用">增加开启高可用</h3>
+<p>1、在Cloudera Manager界面，进入HDFS服务，</p>
+<p>2、操作-&gt; 启用High Availability</p>
+<p>3、选择外一台配置与NameNode差不多的结点，安装NameNode服务，并安装JournalNode(至少安装到三台结点)</p>
+<p>成功后为这样</p>
+<p><img src="https://liangsj.xyz//post-images/1562314595351.png" alt=""></p>
+<h3 id="配置hive和huehbase等">配置HIVE和hue,hbase等</h3>
+<p><a href="https://www.cloudera.com/documentation/enterprise/latest/topics/cdh_hag_hdfs_ha_cdh_components_config.html#concept_rj1_hsq_bp">官方文档</a></p>
+<p>高可用后，需要重新配置HIVE和hue,hbase 等，这里只用到了hue和hive</p>
+<ul>
+<li>更新hive配置</li>
+</ul>
+<p>1、进入hive服务页面</p>
+<p>2、操作 -&gt; 停止</p>
+<p>3、操作 -&gt; Update Hive Metastore NameNodes</p>
+<p>4、操作 -&gt; 启动</p>
+<ul>
+<li>配置Hue Web使用HttpFs</li>
+</ul>
+<p>1、在HDFS服务页面增加HttpFS角色</p>
+<p>2、进入Hue服务</p>
+<p>3、配置 -&gt; Hue Web界面角色，选择HttpFs</p>
+<p>如下
+<img src="https://liangsj.xyz//post-images/1562314608435.png" alt=""></p>
+<p>4、重启Hue服务</p>
+<p>完成</p>
 
             </div>
             
+              <div class="tag-container">
+                
+                  <a href="https://liangsj.xyz//tag/LtjhYDU5u" class="tag">
+                    Hadoop
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://liangsj.xyz//post/yarnmapreduce20jia-gou-de-zi-yuan-qing-qiu-liu-cheng">
+                  <h3 class="post-title">
+                    Yarn(MapReduce2.0)架构的资源请求流程
+                  </h3>
+                </a>
+              </div>
             
 
             
