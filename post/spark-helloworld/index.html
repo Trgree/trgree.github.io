@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://liangsj.xyz//favicon.ico?v=1562317584120">
+<link rel="shortcut icon" href="https://liangsj.xyz//favicon.ico?v=1562318565604">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://liangsj.xyz//styles/main.css">
 
@@ -45,7 +45,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://liangsj.xyz/">
-        <img src="https://liangsj.xyz//images/avatar.png?v=1562317584120" class="site-logo">
+        <img src="https://liangsj.xyz//images/avatar.png?v=1562318565604" class="site-logo">
         <h1 class="site-title">Liangsj</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -119,9 +119,9 @@
 <p>以下为Spark的HelloWorld，输入为2个文件，文件有几个单词，通过Spark计算出单词的个数</p>
 <h3 id="创建测试文件">创建测试文件</h3>
 <ul>
-<li>创建文件 file01和file01，内容如下</li>
+<li>创建文件 file01和file01，内容如下
+file01</li>
 </ul>
-<p>file01</p>
 <pre><code>Hello World Bye World
 Hello2 World2 Bye2 World2
 </code></pre>
@@ -154,20 +154,14 @@ Hello Hadoop Goodbye Hadoop
 </code></pre>
 <h3 id="使用eclipse的helloworld">使用eclipse的HelloWorld</h3>
 <ul>
-<li>
-<p>到<a href="http://scala-ide.org/">scala IDE官网</a>下载scala IDE，并安装</p>
-<p>使用java开发的话，直接用eclipse就可以了，不需有scala IDE，这里使用scala开发</p>
-</li>
-<li>
-<p>安装好并配置好maven</p>
-</li>
-<li>
-<p>新建maven项目</p>
-</li>
+<li>到<a href="http://scala-ide.org/">scala IDE官网</a>下载scala IDE，并安装
+使用java开发的话，直接用eclipse就可以了，不需有scala IDE，这里使用scala开发</li>
+<li>安装好并配置好maven</li>
+<li>新建maven项目
+Spark 1.6 对应 Scala 2.10
+Spark 2.0 对应 Scala 2.11
+这里使用spark是1.6，所以Scala library如果不是2.10，要改为2.10</li>
 </ul>
-<p>Spark 1.6 对应 Scala 2.10</p>
-<p>Spark 2.0 对应 Scala 2.11</p>
-<p>这里使用spark是1.6，所以Scala library如果不是2.10，要改为2.10</p>
 <p>可通过 右键项目-&gt; build Path -&gt; configure build Path -&gt; 删除当前scala library -&gt; Add Library -&gt; Scala Library -&gt; 选择2.10版本</p>
 <p><img src="https://liangsj.xyz//post-images/1562315114563.png" alt=""></p>
 <p>pom.xml内容如下</p>
@@ -262,9 +256,9 @@ Hello Hadoop Goodbye Hadoop
 <p>右键项目 -&gt; maven -&gt; update project</p>
 <p>等待项目构建完成</p>
 <ul>
-<li>新建Scala Object</li>
+<li>新建Scala Object
+内容为</li>
 </ul>
-<p>内容为</p>
 <pre><code>package org.ace.spark
 
 import org.apache.spark.SparkConf
@@ -284,16 +278,10 @@ object WordCount {
 </code></pre>
 <p>(这里为打包到Linux运行，直接在eclipse运行也可以，请看这里 <a href="http://liangsj.xyz/2017/09/sparkOnEclipse/">eclipse运行Spark程序</a>)</p>
 <ul>
-<li>打包</li>
-</ul>
-<p>右键src文件夹 -&gt; export -&gt; JAR file -&gt; 导出jar包</p>
-<ul>
-<li>
-<p>上传到spark环境的linux</p>
-</li>
-<li>
-<p>运行</p>
-</li>
+<li>打包
+右键src文件夹 -&gt; export -&gt; JAR file -&gt; 导出jar包</li>
+<li>上传到spark环境的linux</li>
+<li>运行</li>
 </ul>
 <pre><code>spark-submit \
   --class org.ace.spark.WordCount \

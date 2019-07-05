@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://liangsj.xyz/</id>
     <title>Liangsj</title>
-    <updated>2019-07-05T09:08:43.218Z</updated>
+    <updated>2019-07-05T09:23:05.101Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://liangsj.xyz/"/>
     <link rel="self" href="https://liangsj.xyz//atom.xml"/>
@@ -24,9 +24,9 @@
 <p>以下为Spark的HelloWorld，输入为2个文件，文件有几个单词，通过Spark计算出单词的个数</p>
 <h3 id="创建测试文件">创建测试文件</h3>
 <ul>
-<li>创建文件 file01和file01，内容如下</li>
+<li>创建文件 file01和file01，内容如下
+file01</li>
 </ul>
-<p>file01</p>
 <pre><code>Hello World Bye World
 Hello2 World2 Bye2 World2
 </code></pre>
@@ -59,20 +59,14 @@ Hello Hadoop Goodbye Hadoop
 </code></pre>
 <h3 id="使用eclipse的helloworld">使用eclipse的HelloWorld</h3>
 <ul>
-<li>
-<p>到<a href="http://scala-ide.org/">scala IDE官网</a>下载scala IDE，并安装</p>
-<p>使用java开发的话，直接用eclipse就可以了，不需有scala IDE，这里使用scala开发</p>
-</li>
-<li>
-<p>安装好并配置好maven</p>
-</li>
-<li>
-<p>新建maven项目</p>
-</li>
+<li>到<a href="http://scala-ide.org/">scala IDE官网</a>下载scala IDE，并安装
+使用java开发的话，直接用eclipse就可以了，不需有scala IDE，这里使用scala开发</li>
+<li>安装好并配置好maven</li>
+<li>新建maven项目
+Spark 1.6 对应 Scala 2.10
+Spark 2.0 对应 Scala 2.11
+这里使用spark是1.6，所以Scala library如果不是2.10，要改为2.10</li>
 </ul>
-<p>Spark 1.6 对应 Scala 2.10</p>
-<p>Spark 2.0 对应 Scala 2.11</p>
-<p>这里使用spark是1.6，所以Scala library如果不是2.10，要改为2.10</p>
 <p>可通过 右键项目-&gt; build Path -&gt; configure build Path -&gt; 删除当前scala library -&gt; Add Library -&gt; Scala Library -&gt; 选择2.10版本</p>
 <p><img src="https://liangsj.xyz//post-images/1562315114563.png" alt=""></p>
 <p>pom.xml内容如下</p>
@@ -167,9 +161,9 @@ Hello Hadoop Goodbye Hadoop
 <p>右键项目 -&gt; maven -&gt; update project</p>
 <p>等待项目构建完成</p>
 <ul>
-<li>新建Scala Object</li>
+<li>新建Scala Object
+内容为</li>
 </ul>
-<p>内容为</p>
 <pre><code>package org.ace.spark
 
 import org.apache.spark.SparkConf
@@ -189,16 +183,10 @@ object WordCount {
 </code></pre>
 <p>(这里为打包到Linux运行，直接在eclipse运行也可以，请看这里 <a href="http://liangsj.xyz/2017/09/sparkOnEclipse/">eclipse运行Spark程序</a>)</p>
 <ul>
-<li>打包</li>
-</ul>
-<p>右键src文件夹 -&gt; export -&gt; JAR file -&gt; 导出jar包</p>
-<ul>
-<li>
-<p>上传到spark环境的linux</p>
-</li>
-<li>
-<p>运行</p>
-</li>
+<li>打包
+右键src文件夹 -&gt; export -&gt; JAR file -&gt; 导出jar包</li>
+<li>上传到spark环境的linux</li>
+<li>运行</li>
 </ul>
 <pre><code>spark-submit \
   --class org.ace.spark.WordCount \
@@ -321,23 +309,23 @@ hdfs://localhost:8020/project/wordcount/output
 <h3 id="一-下载相关包">一、下载相关包</h3>
 <p>1、hadoop（最好下载2.5、2.6或2.7版本的，因为第2点的windows执行文件是对应hadoop2.7版本，亲测2.5和2.65也可以，不确定基本版本是否可用）</p>
 <p><a href="http://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-2.6.5/hadoop-2.6.5.tar.gz">官网下载地址</a></p>
-<p>2、windows执行文件（里边包含winutils.exe和一些dll文件）</p>
-<p>hadooponwindows-master.zip</p>
-<p>已分享到<a href="https://pan.baidu.com/s/1kVAAoE7">百度网盘</a></p>
+<p>2、windows执行文件（里边包含winutils.exe和一些dll文件）<br>
+hadooponwindows-master.zip<br>
+已分享到<a href="https://pan.baidu.com/s/1kVAAoE7">百度网盘</a></p>
 <p>3、eclipse插件 hadoop-eclipse-plugin-2.6.0.jar</p>
 <p>已分享到<a href="https://pan.baidu.com/s/1boOh6Qb">百度网盘</a></p>
 <h3 id="二-安装hadoop">二、安装hadoop</h3>
 <p>1、安装JDK，这里步骤省略，不会有可以百度，很简单</p>
 <p>2、解压hadoop-2.6.5.tar.gz包，解压hadooponwindows-master.zip （路径不要有中文和空格）</p>
 <p>3、复制hadooponwindows-master/bin目录里的exe文件和dll文件(一共三个)到hadoop-2.6.5/bin目录</p>
-<p>4、配置JAVA_HOME和HADOOP_HOME环境变量</p>
-<p>右键我的电脑 -&gt; 高级系统设置 -&gt; 环境变量 -&gt; 系统变量 -&gt; 新建，增加JAVA_HOME和HADOOP_HOME</p>
+<p>4、配置JAVA_HOME和HADOOP_HOME环境变量<br>
+右键我的电脑 -&gt; 高级系统设置 -&gt; 环境变量 -&gt; 系统变量 -&gt; 新建，增加JAVA_HOME和HADOOP_HOME</p>
 <p>并把%HADOOP_HOME%\bin和%HADOOP_HOME%\sbin加入到 PATH变量中</p>
 <p><img src="https://liangsj.xyz//post-images/1562314808857.png" alt=""><br>
 <img src="https://liangsj.xyz//post-images/1562314814916.png" alt=""></p>
-<p>5、 配置Hadoop</p>
-<p>文件在Hadoop目录的etc/hadoop下</p>
-<p>core-site.xml</p>
+<p>5、 配置Hadoop<br>
+文件在Hadoop目录的etc/hadoop下
+core-site.xml</p>
 <p>（路径不要有中文和空格）</p>
 <pre><code>&lt;configuration&gt;
    &lt;property&gt;
@@ -392,38 +380,38 @@ set JAVA_HOME=D:/Java/jdk1.8.0_101
 <p>2、启动hdfs</p>
 <pre><code> start-dfs
 </code></pre>
-<p>会启动2个窗口，没异常即为安装成功</p>
-<p><img src="https://liangsj.xyz//post-images/1562314830299.png" alt=""></p>
+<p>会启动2个窗口，没异常即为安装成功
+<img src="https://liangsj.xyz//post-images/1562314830299.png" alt=""></p>
 <p>3、可以查看 HDFS数据</p>
 <pre><code>hadoop fs -ls /
 </code></pre>
-<p>4、访问 http://localhost:50070 可以查看hdfs状态</p>
-<p><img src="https://liangsj.xyz//post-images/1562314842170.png" alt=""></p>
+<p>4、访问 http://localhost:50070 可以查看hdfs状态
+<img src="https://liangsj.xyz//post-images/1562314842170.png" alt=""></p>
 <h3 id="四-配置eclipse">四、配置eclipse</h3>
 <p>1、复制hadoop-eclipse-plugin-2.6.0.jar到eclipse dropins目录</p>
-<p>2、启动eclipse</p>
-<p>打开 window -&gt; Preferences，可以看到多了Hadoop Map/Reduce配置项</p>
-<p>配置Hadoop installation directory，如下</p>
-<p><img src="https://liangsj.xyz//post-images/1562314850573.png" alt=""></p>
+<p>2、启动eclipse
+打开 window -&gt; Preferences，可以看到多了Hadoop Map/Reduce配置项
+配置Hadoop installation directory，如下
+<img src="https://liangsj.xyz//post-images/1562314850573.png" alt=""></p>
 <p>3、配置hdfs</p>
-<p>1）打开 Window -&gt; perspective -&gt; open perspective -&gt; other..</p>
-<p><img src="https://liangsj.xyz//post-images/1562314859406.png" alt=""></p>
-<p>2）project explorer出现 DFS Locations</p>
-<p><img src="https://liangsj.xyz//post-images/1562314869656.png" alt=""></p>
-<p>3） 打开右下方的Map/Reduce Locations</p>
-<p><img src="https://liangsj.xyz//post-images/1562314881521.png" alt=""></p>
-<p>4） 右键 空白处 -&gt; new hadoop location</p>
-<p>配置如下，9001为默认 Master端口，应该上面没配置，所以写9001</p>
-<p>DFS Master端口为core-site.xml 中配置HDFS端口 19000</p>
-<p><img src="https://liangsj.xyz//post-images/1562314890896.png" alt=""></p>
+<p>1）打开 Window -&gt; perspective -&gt; open perspective -&gt; other..
+<img src="https://liangsj.xyz//post-images/1562314859406.png" alt=""></p>
+<p>2）project explorer出现 DFS Locations
+<img src="https://liangsj.xyz//post-images/1562314869656.png" alt=""></p>
+<p>3） 打开右下方的Map/Reduce Locations
+<img src="https://liangsj.xyz//post-images/1562314881521.png" alt=""></p>
+<p>4） 右键 空白处 -&gt; new hadoop location
+配置如下，9001为默认 Master端口，应该上面没配置，所以写9001
+DFS Master端口为core-site.xml 中配置HDFS端口 19000
+<img src="https://liangsj.xyz//post-images/1562314890896.png" alt=""></p>
 <p>5）配置成功的话，左右窗口就可以看HDFS目录，可以对HDFS进行操作，我新建了几个目录和上传了文件</p>
 <p><img src="https://liangsj.xyz//post-images/1562314898795.png" alt=""></p>
 <h3 id="五-运行mapreduce程序">五、运行MapReduce程序</h3>
-<p>指定输入和输出，要带上hdfs</p>
-<p>hdfs://localhost:19000/project/wordcount/input</p>
-<p>hdfs://localhost:19000/project/wordcount/output</p>
-<p>右键，run as -&gt;  Java Application</p>
-<p><img src="https://liangsj.xyz//post-images/1562314906961.png" alt=""></p>
+<p>指定输入和输出，要带上hdfs
+hdfs://localhost:19000/project/wordcount/input
+hdfs://localhost:19000/project/wordcount/output
+右键，run as -&gt;  Java Application<br>
+<img src="https://liangsj.xyz//post-images/1562314906961.png" alt=""></p>
 <p>结束</p>
 ]]></content>
     </entry>
@@ -437,32 +425,34 @@ set JAVA_HOME=D:/Java/jdk1.8.0_101
 <p>Hddoop2后，使用高可用，可配置2个NameNode，一个活动，一个备用，
 Hddoop2后，使用高可用，可配置2个NameNode，一个活动，一个备用，</p>
 <p>当活动NameNode出现问题时，备用NameNode可手工或自动切换为活动状态</p>
-<p>下面配置高可用:</p>
-<p><a href="https://www.cloudera.com/documentation/enterprise/latest/topics/cdh_hag_hdfs_ha_config.html">官方文档</a></p>
+<p>下面配置高可用:
+<a href="https://www.cloudera.com/documentation/enterprise/latest/topics/cdh_hag_hdfs_ha_config.html">官方文档</a></p>
 <h3 id="增加开启高可用">增加开启高可用</h3>
-<p>1、在Cloudera Manager界面，进入HDFS服务，</p>
-<p>2、操作-&gt; 启用High Availability</p>
-<p>3、选择外一台配置与NameNode差不多的结点，安装NameNode服务，并安装JournalNode(至少安装到三台结点)</p>
-<p>成功后为这样</p>
-<p><img src="https://liangsj.xyz//post-images/1562314595351.png" alt=""></p>
+<p>1、在Cloudera Manager界面，进入HDFS服务，
+2、操作-&gt; 启用High Availability
+3、选择外一台配置与NameNode差不多的结点，安装NameNode服务，并安装JournalNode(至少安装到三台结点)</p>
+<p>成功后为这样
+<img src="https://liangsj.xyz//post-images/1562314595351.png" alt=""></p>
 <h3 id="配置hive和huehbase等">配置HIVE和hue,hbase等</h3>
 <p><a href="https://www.cloudera.com/documentation/enterprise/latest/topics/cdh_hag_hdfs_ha_cdh_components_config.html#concept_rj1_hsq_bp">官方文档</a></p>
 <p>高可用后，需要重新配置HIVE和hue,hbase 等，这里只用到了hue和hive</p>
 <ul>
-<li>更新hive配置</li>
-</ul>
-<p>1、进入hive服务页面</p>
-<p>2、操作 -&gt; 停止</p>
-<p>3、操作 -&gt; Update Hive Metastore NameNodes</p>
-<p>4、操作 -&gt; 启动</p>
-<ul>
-<li>配置Hue Web使用HttpFs</li>
-</ul>
-<p>1、在HDFS服务页面增加HttpFS角色</p>
-<p>2、进入Hue服务</p>
-<p>3、配置 -&gt; Hue Web界面角色，选择HttpFs</p>
-<p>如下
+<li>
+<p>更新hive配置
+1、进入hive服务页面
+2、操作 -&gt; 停止
+3、操作 -&gt; Update Hive Metastore NameNodes
+4、操作 -&gt; 启动</p>
+</li>
+<li>
+<p>配置Hue Web使用HttpFs
+1、在HDFS服务页面增加HttpFS角色
+2、进入Hue服务
+3、配置 -&gt; Hue Web界面角色，选择HttpFs
+如下
 <img src="https://liangsj.xyz//post-images/1562314608435.png" alt=""></p>
+</li>
+</ul>
 <p>4、重启Hue服务</p>
 <p>完成</p>
 ]]></content>
