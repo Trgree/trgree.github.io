@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://liangsj.xyz/</id>
     <title>Liangsj</title>
-    <updated>2019-07-05T07:38:52.333Z</updated>
+    <updated>2019-07-05T08:00:25.566Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://liangsj.xyz/"/>
     <link rel="self" href="https://liangsj.xyz//atom.xml"/>
@@ -10,6 +10,65 @@
     <logo>https://liangsj.xyz//images/avatar.png</logo>
     <icon>https://liangsj.xyz//favicon.ico</icon>
     <rights>All rights reserved 2019, Liangsj</rights>
+    <entry>
+        <title type="html"><![CDATA[Yarn(MapReduce2.0)架构的资源请求流程]]></title>
+        <id>https://liangsj.xyz//post/yarnmapreduce20jia-gou-de-zi-yuan-qing-qiu-liu-cheng</id>
+        <link href="https://liangsj.xyz//post/yarnmapreduce20jia-gou-de-zi-yuan-qing-qiu-liu-cheng">
+        </link>
+        <updated>2019-07-05T07:57:26.000Z</updated>
+        <content type="html"><![CDATA[<p>最近整理在做MapReduce开发，对Yarn的请求流程做些简单的整理，以防忘记。</p>
+<p>MR1主要由JobTracker和TaskTacker组成，Yarn由ResourceManager、NodeManager、ApplicationMaster组成</p>
+<p>以下是自己画的yarn流程图</p>
+<p><img src="https://liangsj.xyz//post-images/1562313561494.png" alt=""></p>
+<h3 id="一些词的解析">一些词的解析</h3>
+<p><strong>ResourceManager：</strong> 集群老大，有最高权力，相当于老总，管理着整个集群的资源，谁要使用，都要先经过他。</p>
+<ul>
+<li>1、全局的资源管理器，负责整个系统的资源管理和分配。</li>
+<li>2、它主要由两个组件构成：调度器（Scheduler）和应用程序管理器（Applications Manager，ASM）</li>
+</ul>
+<p><strong>NodeManager：</strong> 一台机器上的老大，当台机器上的管理者。相当于部分经理。</p>
+<ul>
+<li>1、每个节点上的资源和任务管理器。</li>
+<li>2、定时地向RM汇报本节点上的资源使用情况和各个Container的运行状态；</li>
+<li>3、接收并处理来自AM的Container启动/停止等各种请求</li>
+</ul>
+<p><strong>ApplicationMaster：</strong> 中间者，每个应用程序一个AM</p>
+<ul>
+<li>1、获取资源(用Container表示)</li>
+<li>2、将得到的任务进一步分配给内部的任务(资源的二次分配)；</li>
+<li>3、与NM通信以启动/停止任务；</li>
+<li>4、监控所有任务运行状态，并在任务运行失败时重新为任务申请资源以重启任务</li>
+</ul>
+<p><strong>Container：</strong> 是YARN中的资源抽象，它封装了某个节点上的多维度资源，如内存、CPU、磁盘、网络等</p>
+<h3 id="流程">流程</h3>
+<ul>
+<li>
+<p>1、用户向yarn提交程序，即Mapredeuce程序，ResourceManager(资源管理器)接收到客户端MR运行请求</p>
+</li>
+<li>
+<p>2、ResourceManager分配一个Container(资源)用来启动ApplicationMaster(程序管理员)，并告知NodeManager(节点管理员)，要求它在这个Container下启动ApplicationMaster</p>
+</li>
+<li>
+<p>3、ApplicationMaster启动后，向ResourceManager发起注册请求</p>
+</li>
+<li>
+<p>4、ApplicationMaster向ResourceManager申请资源</p>
+</li>
+<li>
+<p>5、取得资源后，根据资源，向相关的NodeManager通信，要求其启动程序</p>
+</li>
+<li>
+<p>6、NodeManager（多个）启动MR</p>
+</li>
+<li>
+<p>7、NodeManager不断汇报MR状态和进展给ApplicationMaster</p>
+</li>
+<li>
+<p>8、当MR全部完成时，ApplicationMaster向ResourceManager汇报任务完成，并注销自己</p>
+</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[git在windows下安装与使用]]></title>
         <id>https://liangsj.xyz//post/git-zai-windows-xia-an-zhuang-yu-shi-yong</id>
