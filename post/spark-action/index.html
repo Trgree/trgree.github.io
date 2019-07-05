@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>关于 | Liangsj</title>
+<title>spark Action | Liangsj</title>
 <meta name="description" content="个人博客">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -107,14 +107,70 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">关于</h2>
-            <div class="post-date">2019-01-25</div>
+            <h2 class="post-title">spark Action</h2>
+            <div class="post-date">2019-07-05</div>
             
             <div class="post-content">
-              <p>这是关于的页面，可以在这里向世界介绍你！</p>
+              <p>Action 返回计算结果</p>
+<h3 id="reducef">reduce(f)</h3>
+<p>接收一个函数，作用在RDD两个类型相同的元素上，返回新元素
+可以实现，RDD中元素的累加，计数，和其它类型的聚集操作</p>
+<pre><code>&gt;val rdd=sc.parallelize(Array(1,2,3,4))
+&gt;val sum=rdd.reduce((x,y) =&gt; x+y)
+sum: Int = 10
+</code></pre>
+<h3 id="foldzerovalueop">fold(zeroValue)(op)</h3>
+<p>和reduce原理相同，但与reduce不同，相当于每个reducejf ,迭代器取的第一个元素是zeroValue</p>
+<pre><code>&gt; val sum=rdd.fold(0)((x,y) =&gt; x+y )
+sum: Int = 10
+0+rdd(1)+rdd(2)+rdd(3)+rdd(4)
+</code></pre>
+<h3 id="collect">collect()</h3>
+<p>遍历整个RDD，返回为一个单机的scala Array数组。一般测试时使用</p>
+<pre><code>&gt;var lines=sc.parallelize(Array(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;))
+&gt;lines.collect.foreach(println)
+a
+b
+c
+</code></pre>
+<h3 id="taken">take(n)</h3>
+<p>返回RDD的n个元素（同时尝试访问最少的paritions）
+返回结果无序，测试使用</p>
+<h3 id="topn">top(n)</h3>
+<p>取排序后前几位，使用默认的比较器</p>
+<pre><code>&gt;var nums=sc.parallelize(Array(1,3,6,4))
+&gt;nums.top(2)
+res47: Array[Int] = Array(6, 4)
+</code></pre>
+<h3 id="foreachf">foreach(f)</h3>
+<p>计算RDD中的每个元素，但不返回到本地
+可以配合println()友好的打印出数据</p>
+<pre><code>&gt;lines.collect.foreach(println)
+</code></pre>
+<h3 id="saveastextfilepathstring">saveAsTextFile(path:String)</h3>
+<p>把数据输出，存储到HDFS的指定目录</p>
+<pre><code>&gt;lines.saveAsTextFile(&quot;/tmp/sparkout&quot;)
+</code></pre>
 
             </div>
             
+              <div class="tag-container">
+                
+                  <a href="https://liangsj.xyz//tag/hmoPlya22" class="tag">
+                    Spark
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://liangsj.xyz//post/eclipse-yun-xing-spark-cheng-xu">
+                  <h3 class="post-title">
+                    eclipse运行Spark程序
+                  </h3>
+                </a>
+              </div>
             
 
             

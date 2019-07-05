@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>windows搭建hadoop环境及在eclipse运行MapReduce | Liangsj</title>
+<meta name="description" content="个人博客">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://liangsj.xyz//favicon.ico?v=1562315128963">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://liangsj.xyz//styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-91837530-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-91837530-1');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://liangsj.xyz/">
+        <img src="https://liangsj.xyz//images/avatar.png?v=1562315128963" class="site-logo">
+        <h1 class="site-title">Liangsj</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      个人博客
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://liangsj.xyz//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">windows搭建hadoop环境及在eclipse运行MapReduce</h2>
+            <div class="post-date">2019-07-05</div>
+            
+            <div class="post-content">
+              <p>我们开发环境一般为windows,而hadoop是运行在linux，开发时调试如果每次打包好到linux运行，很费时，也很麻烦，效率低</p>
+<p>这里教大家如何在windows搭建hadoop环境及在eclipse运行MapReduce</p>
+<h3 id="一-下载相关包">一、下载相关包</h3>
+<p>1、hadoop（最好下载2.5、2.6或2.7版本的，因为第2点的windows执行文件是对应hadoop2.7版本，亲测2.5和2.65也可以，不确定基本版本是否可用）</p>
+<p><a href="http://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-2.6.5/hadoop-2.6.5.tar.gz">官网下载地址</a></p>
+<p>2、windows执行文件（里边包含winutils.exe和一些dll文件）</p>
+<p>hadooponwindows-master.zip</p>
+<p>已分享到<a href="https://pan.baidu.com/s/1kVAAoE7">百度网盘</a></p>
+<p>3、eclipse插件 hadoop-eclipse-plugin-2.6.0.jar</p>
+<p>已分享到<a href="https://pan.baidu.com/s/1boOh6Qb">百度网盘</a></p>
+<h3 id="二-安装hadoop">二、安装hadoop</h3>
+<p>1、安装JDK，这里步骤省略，不会有可以百度，很简单</p>
+<p>2、解压hadoop-2.6.5.tar.gz包，解压hadooponwindows-master.zip （路径不要有中文和空格）</p>
+<p>3、复制hadooponwindows-master/bin目录里的exe文件和dll文件(一共三个)到hadoop-2.6.5/bin目录</p>
+<p>4、配置JAVA_HOME和HADOOP_HOME环境变量</p>
+<p>右键我的电脑 -&gt; 高级系统设置 -&gt; 环境变量 -&gt; 系统变量 -&gt; 新建，增加JAVA_HOME和HADOOP_HOME</p>
+<p>并把%HADOOP_HOME%\bin和%HADOOP_HOME%\sbin加入到 PATH变量中</p>
+<p><img src="https://liangsj.xyz//post-images/1562314808857.png" alt=""><br>
+<img src="https://liangsj.xyz//post-images/1562314814916.png" alt=""></p>
+<p>5、 配置Hadoop</p>
+<p>文件在Hadoop目录的etc/hadoop下</p>
+<p>core-site.xml</p>
+<p>（路径不要有中文和空格）</p>
+<pre><code>&lt;configuration&gt;
+   &lt;property&gt;
+       &lt;name&gt;fs.defaultFS&lt;/name&gt;
+       &lt;value&gt;hdfs://0.0.0.0:19000&lt;/value&gt;
+   &lt;/property&gt;
+   &lt;property&gt;
+        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+        &lt;value&gt;/D:/soft/dev/hadoop/data/tmp&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<p>hdfs-site.xml</p>
+<pre><code>  &lt;configuration&gt;
+       &lt;property&gt;
+               &lt;name&gt;dfs.replication&lt;/name&gt;
+                &lt;value&gt;1&lt;/value&gt;
+       &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<p>mapred-site.xml</p>
+<p>(没有的话就复制mapred-site.xml.template为mapred-site.xml)</p>
+<pre><code>&lt;configuration&gt;
+       &lt;property&gt;
+          &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+          &lt;value&gt;yarn&lt;/value&gt;
+       &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<p>yarn-site.xml</p>
+<pre><code>&lt;configuration&gt;
+       &lt;property&gt;
+          &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+          &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+       &lt;/property&gt;
+
+       &lt;property&gt;
+          &lt;name&gt;yarn.nodemanager.aux-services.mapreduce.shuffle.class&lt;/name&gt;
+          &lt;value&gt;org.apache.hadoop.mapred.ShuffleHandler&lt;/value&gt;
+       &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<p>hadoop-env.cmd</p>
+<p>修改文件中JAVA_HOME为实际JAVA路径（不能有空格，如果java安装在Program Files下，复制到其它没有空格的目录，再使用该目录）</p>
+<pre><code>@rem set JAVA_HOME=%JAVA_HOME%
+set JAVA_HOME=D:/Java/jdk1.8.0_101
+</code></pre>
+<h3 id="三-运行hadoop">三、运行Hadoop</h3>
+<p>1、运行cmd窗口，执行以下命令</p>
+<pre><code>hdfs namenode -format
+</code></pre>
+<p>2、启动hdfs</p>
+<pre><code> start-dfs
+</code></pre>
+<p>会启动2个窗口，没异常即为安装成功</p>
+<p><img src="https://liangsj.xyz//post-images/1562314830299.png" alt=""></p>
+<p>3、可以查看 HDFS数据</p>
+<pre><code>hadoop fs -ls /
+</code></pre>
+<p>4、访问 http://localhost:50070 可以查看hdfs状态</p>
+<p><img src="https://liangsj.xyz//post-images/1562314842170.png" alt=""></p>
+<h3 id="四-配置eclipse">四、配置eclipse</h3>
+<p>1、复制hadoop-eclipse-plugin-2.6.0.jar到eclipse dropins目录</p>
+<p>2、启动eclipse</p>
+<p>打开 window -&gt; Preferences，可以看到多了Hadoop Map/Reduce配置项</p>
+<p>配置Hadoop installation directory，如下</p>
+<p><img src="https://liangsj.xyz//post-images/1562314850573.png" alt=""></p>
+<p>3、配置hdfs</p>
+<p>1）打开 Window -&gt; perspective -&gt; open perspective -&gt; other..</p>
+<p><img src="https://liangsj.xyz//post-images/1562314859406.png" alt=""></p>
+<p>2）project explorer出现 DFS Locations</p>
+<p><img src="https://liangsj.xyz//post-images/1562314869656.png" alt=""></p>
+<p>3） 打开右下方的Map/Reduce Locations</p>
+<p><img src="https://liangsj.xyz//post-images/1562314881521.png" alt=""></p>
+<p>4） 右键 空白处 -&gt; new hadoop location</p>
+<p>配置如下，9001为默认 Master端口，应该上面没配置，所以写9001</p>
+<p>DFS Master端口为core-site.xml 中配置HDFS端口 19000</p>
+<p><img src="https://liangsj.xyz//post-images/1562314890896.png" alt=""></p>
+<p>5）配置成功的话，左右窗口就可以看HDFS目录，可以对HDFS进行操作，我新建了几个目录和上传了文件</p>
+<p><img src="https://liangsj.xyz//post-images/1562314898795.png" alt=""></p>
+<h3 id="五-运行mapreduce程序">五、运行MapReduce程序</h3>
+<p>指定输入和输出，要带上hdfs</p>
+<p>hdfs://localhost:19000/project/wordcount/input</p>
+<p>hdfs://localhost:19000/project/wordcount/output</p>
+<p>右键，run as -&gt;  Java Application</p>
+<p><img src="https://liangsj.xyz//post-images/1562314906961.png" alt=""></p>
+<p>结束</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://liangsj.xyz//tag/LtjhYDU5u" class="tag">
+                    Hadoop
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://liangsj.xyz//post/hadoop-gao-ke-yong-pei-zhi">
+                  <h3 class="post-title">
+                    hadoop 高可用配置
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '8c5fcba2698cd92155b7',
+        clientSecret: '4f3a56e161e49069d65cea26df674b76908e2e0e',
+        repo: 'trgree.github.io',
+        owner: 'trgree',
+        admin: ['trgree'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
