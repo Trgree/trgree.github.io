@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://liangsj.xyz/</id>
     <title>Gridea</title>
-    <updated>2019-07-05T07:16:47.717Z</updated>
+    <updated>2019-07-05T07:25:19.531Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://liangsj.xyz/"/>
     <link rel="self" href="https://liangsj.xyz//atom.xml"/>
@@ -10,6 +10,82 @@
     <logo>https://liangsj.xyz//images/avatar.png</logo>
     <icon>https://liangsj.xyz//favicon.ico</icon>
     <rights>All rights reserved 2019, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[git在windows下安装与使用]]></title>
+        <id>https://liangsj.xyz//post/git-zai-windows-xia-an-zhuang-yu-shi-yong</id>
+        <link href="https://liangsj.xyz//post/git-zai-windows-xia-an-zhuang-yu-shi-yong">
+        </link>
+        <updated>2019-07-05T07:22:51.000Z</updated>
+        <content type="html"><![CDATA[<p>github桌面程序 使用过一段时间，太慢了，而且在家还安装不了，所以还是git命令好用，记录下安装和使用过程</p>
+<h3 id="安装git客户端">安装Git客户端</h3>
+<ul>
+<li>
+<p>到<a href="https://git-scm.com/downloads">git官网</a>下载git，并安装</p>
+</li>
+<li>
+<p>GitHub上添加 SSH key</p>
+<p>打开git bash，执行如下命令</p>
+</li>
+</ul>
+<pre><code>$cd ~/.ssh    --没有则创建
+$ssh-keygen -t rsa -b 4096 -C &quot;trgree@foxmail.com&quot;       --并连续按3个enter
+</code></pre>
+<p>复制~/.ssh目录下id_rsa.pub内容到github的ssh设置</p>
+<p>位置： settings -&gt; SSH and GPG keys -&gt; new SSH key</p>
+<p>测试连接是否成功</p>
+<pre><code>$ssh -T git@github.com
+</code></pre>
+<p>输入yes，
+如果出现以下提示证明添加成功</p>
+<pre><code>Hi Trgree! You've successfully authenticated, but GitHub does not provide shell access.
+</code></pre>
+<ul>
+<li>设置git</li>
+</ul>
+<pre><code>$git config --global user.name &quot;trgree&quot;                  # 请换成你自己的名字，除非你凑巧也叫wukong.sun 
+$git config --global user.email &quot;trgree@foxmail.com&quot;         # 同上 
+$git config --global push.default simple               # 要是你非要用低版本的Git（比如1.7.x），好吧，那就不设simple设current，否则你的Git不支持 
+$git config --global core.autocrlf false               # 让Git不要管Windows/Unix换行符转换的事 
+$git config --global gui.encoding utf-8                # 避免git gui中的中文乱码 
+$git config --global core.quotepath off                # 避免git status显示的中文文件名乱码 
+</code></pre>
+<h3 id="克隆项目到本地">克隆项目到本地</h3>
+<p>在github上获取项目git路径</p>
+<pre><code>$git clone https://github.com/Trgree/trgree.github.io.git trgree.github.io
+</code></pre>
+<h3 id="查看文件状态有哪些文件是需要提交的">查看文件状态，有哪些文件是需要提交的</h3>
+<pre><code>$cd trgree.github.io
+$git status
+</code></pre>
+<p><img src="https://liangsj.xyz//post-images/1562311483071.png" alt=""></p>
+<h3 id="添加要提交文件到缓存中">添加要提交文件到缓存中</h3>
+<pre><code>$git add _posts/*
+$git add images/posts/git-mark/pic1.png
+$git add .   #当前目录下所有文件
+$git commit -m 'add git-mark'
+</code></pre>
+<h3 id="提交修改后文件到github上">提交修改后文件到github上</h3>
+<pre><code>$git push
+</code></pre>
+<p>输入用户密码即可。</p>
+<p>但每次push都要输入用户密码，很麻烦，可以把push修改为ssh方式，则不用输入（前提是添加了ssh key到github，见前面）</p>
+<p>通过以下命令查看</p>
+<pre><code>git remote -v
+</code></pre>
+<p>返回</p>
+<pre><code>origin  https://github.com/Trgree/trgree.github.io.git (fetch)
+origin  https://github.com/Trgree/trgree.github.io.git (push)
+</code></pre>
+<p>修改为ssh</p>
+<pre><code>git remote rm origin
+git remote add origin git@github.com:Trgree/trgree.github.io.git
+git push --set-upstream origin master
+</code></pre>
+<h3 id="更新远程文件到本地">更新远程文件到本地</h3>
+<pre><code>$git pull
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://liangsj.xyz//post/hello-gridea</id>

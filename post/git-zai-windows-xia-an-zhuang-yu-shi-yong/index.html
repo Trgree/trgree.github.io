@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>Hello Gridea | Gridea</title>
+<title>git在windows下安装与使用 | Gridea</title>
 <meta name="description" content="温故而知新">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -98,45 +98,90 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">Hello Gridea</h2>
-            <div class="post-date">2018-12-12</div>
-            
-              <div class="feature-container" style="background-image: url('https://liangsj.xyz//post-images/hello-gridea.png')">
-              </div>
+            <h2 class="post-title">git在windows下安装与使用</h2>
+            <div class="post-date">2019-07-05</div>
             
             <div class="post-content">
-              <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="http://hvenotes.fehey.com/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>𝖶𝗂𝗇𝖽𝗈𝗐𝗌</strong> 或 <strong>𝖬𝖺𝖼𝖮𝖲</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+              <p>github桌面程序 使用过一段时间，太慢了，而且在家还安装不了，所以还是git命令好用，记录下安装和使用过程</p>
+<h3 id="安装git客户端">安装Git客户端</h3>
+<ul>
+<li>
+<p>到<a href="https://git-scm.com/downloads">git官网</a>下载git，并安装</p>
+</li>
+<li>
+<p>GitHub上添加 SSH key</p>
+<p>打开git bash，执行如下命令</p>
+</li>
+</ul>
+<pre><code>$cd ~/.ssh    --没有则创建
+$ssh-keygen -t rsa -b 4096 -C &quot;trgree@foxmail.com&quot;       --并连续按3个enter
+</code></pre>
+<p>复制~/.ssh目录下id_rsa.pub内容到github的ssh设置</p>
+<p>位置： settings -&gt; SSH and GPG keys -&gt; new SSH key</p>
+<p>测试连接是否成功</p>
+<pre><code>$ssh -T git@github.com
+</code></pre>
+<p>输入yes，
+如果出现以下提示证明添加成功</p>
+<pre><code>Hi Trgree! You've successfully authenticated, but GitHub does not provide shell access.
+</code></pre>
+<ul>
+<li>设置git</li>
+</ul>
+<pre><code>$git config --global user.name &quot;trgree&quot;                  # 请换成你自己的名字，除非你凑巧也叫wukong.sun 
+$git config --global user.email &quot;trgree@foxmail.com&quot;         # 同上 
+$git config --global push.default simple               # 要是你非要用低版本的Git（比如1.7.x），好吧，那就不设simple设current，否则你的Git不支持 
+$git config --global core.autocrlf false               # 让Git不要管Windows/Unix换行符转换的事 
+$git config --global gui.encoding utf-8                # 避免git gui中的中文乱码 
+$git config --global core.quotepath off                # 避免git status显示的中文文件名乱码 
+</code></pre>
+<h3 id="克隆项目到本地">克隆项目到本地</h3>
+<p>在github上获取项目git路径</p>
+<pre><code>$git clone https://github.com/Trgree/trgree.github.io.git trgree.github.io
+</code></pre>
+<h3 id="查看文件状态有哪些文件是需要提交的">查看文件状态，有哪些文件是需要提交的</h3>
+<pre><code>$cd trgree.github.io
+$git status
+</code></pre>
+<p><img src="https://liangsj.xyz//post-images/1562311483071.png" alt=""></p>
+<h3 id="添加要提交文件到缓存中">添加要提交文件到缓存中</h3>
+<pre><code>$git add _posts/*
+$git add images/posts/git-mark/pic1.png
+$git add .   #当前目录下所有文件
+$git commit -m 'add git-mark'
+</code></pre>
+<h3 id="提交修改后文件到github上">提交修改后文件到github上</h3>
+<pre><code>$git push
+</code></pre>
+<p>输入用户密码即可。</p>
+<p>但每次push都要输入用户密码，很麻烦，可以把push修改为ssh方式，则不用输入（前提是添加了ssh key到github，见前面）</p>
+<p>通过以下命令查看</p>
+<pre><code>git remote -v
+</code></pre>
+<p>返回</p>
+<pre><code>origin  https://github.com/Trgree/trgree.github.io.git (fetch)
+origin  https://github.com/Trgree/trgree.github.io.git (push)
+</code></pre>
+<p>修改为ssh</p>
+<pre><code>git remote rm origin
+git remote add origin git@github.com:Trgree/trgree.github.io.git
+git push --set-upstream origin master
+</code></pre>
+<h3 id="更新远程文件到本地">更新远程文件到本地</h3>
+<pre><code>$git pull
+</code></pre>
 
             </div>
             
-              <div class="tag-container">
-                
-                  <a href="https://liangsj.xyz//tag/gridea" class="tag">
-                    Gridea
-                  </a>
-                
-              </div>
             
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://liangsj.xyz//post/hello-gridea">
+                  <h3 class="post-title">
+                    Hello Gridea
+                  </h3>
+                </a>
+              </div>
             
 
             
