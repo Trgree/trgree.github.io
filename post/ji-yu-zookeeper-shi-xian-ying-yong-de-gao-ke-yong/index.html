@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://liangsj.xyz//favicon.ico?v=1584149602522">
+<link rel="shortcut icon" href="https://liangsj.xyz//favicon.ico?v=1584149730123">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://liangsj.xyz//styles/main.css">
 
@@ -45,7 +45,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://liangsj.xyz/">
-        <img src="https://liangsj.xyz//images/avatar.png?v=1584149602522" class="site-logo">
+        <img src="https://liangsj.xyz//images/avatar.png?v=1584149730123" class="site-logo">
         <h1 class="site-title">Liangsj</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -346,6 +346,17 @@ Created:/pusher/node-0000000043
 未获取锁，等待下一次子结点变化
 子结点发生变化，当前子结点:[node-0000000042, node-0000000043, node-0000000044]
 未获取锁，等待下一次子结点变化
+</code></pre>
+<p>停止应用一，应用二日志：</p>
+<pre><code>name:node2
+Created:/pusher/node-0000000043
+子结点发生变化，当前子结点:[node-0000000042, node-0000000043]
+未获取锁，等待下一次子结点变化
+子结点发生变化，当前子结点:[node-0000000042, node-0000000043, node-0000000044]
+未获取锁，等待下一次子结点变化
+子结点发生变化，当前子结点:[node-0000000043, node-0000000044]
+获得锁
+doing ...
 </code></pre>
 
             </div>
