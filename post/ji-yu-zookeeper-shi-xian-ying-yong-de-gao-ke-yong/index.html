@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>基于Zookeeper实现应用的高可用 | Liangsj</title>
+<meta name="description" content="个人博客">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://liangsj.xyz//favicon.ico?v=1584149048780">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://liangsj.xyz//styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-91837530-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-91837530-1');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://liangsj.xyz/">
+        <img src="https://liangsj.xyz//images/avatar.png?v=1584149048780" class="site-logo">
+        <h1 class="site-title">Liangsj</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      个人博客
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://liangsj.xyz//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">基于Zookeeper实现应用的高可用</h2>
+            <div class="post-date">2020-03-14</div>
+            
+            <div class="post-content">
+              <h4 id="需求">需求</h4>
+<p>实际应用中，应用或机器可能会发生故障情况，导致不可用，那么就需要多结点部署，一个结点应用异常时能自动切换到另一应用</p>
+<h3 id="实现逻辑">实现逻辑</h3>
+<p>这里利用Zookeeper中一个znode只能由一个客户端能创建特性实现，思路很简单，首先创建一个znode作为根znode,比如/myha ; 然后每个客户端在该znode下创建短暂顺序znode；在任何时间点，顺序号最小的客户端即为激动状态。<br>
+以下为主要逻辑：</p>
+<ol>
+<li>在ROOT_PATH下创建一个短暂顺序znode ：如 node-0000000001</li>
+<li>查询ROOT_PATH下的子节点，并设置一个Watcher</li>
+<li>如果ROOT_PATH下最小的节点为自己创建的节点，即获取锁</li>
+<li>如果步骤2中的Watcher收到子节点变化通知，转到步骤3</li>
+</ol>
+<h3 id="代码实现">代码实现</h3>
+<p>首先连接zk，需要实现Watcher接口，</p>
+<pre><code class="language-java">public class MyHA  implements Watcher{
+    private static final int TIME_OUT = 5000;
+    protected ZooKeeper zk;
+    private CountDownLatch countDownLatch = new CountDownLatch(1);
+		
+   /**
+     * 连接zk,直到连接完成才返回
+     */
+    public void connect(String host) throws IOException, InterruptedException {
+        zk =new ZooKeeper(host,TIME_OUT, this);
+        countDownLatch.await();
+    }
+
+    /**
+     * 连接后，会被调用
+     */
+    @Override
+    public void process(WatchedEvent event) {
+        if(event.getState() == Watcher.Event.KeeperState.SyncConnected){
+            countDownLatch.countDown();
+        }
+    }
+}
+</code></pre>
+<p>下一步开始创建根znode</p>
+<pre><code class="language-java"> if (zk.exists(ROOT_PATH, false) == null) {
+       String path = zk.create(ROOT_PATH, null, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+       System.out.println(&quot;create root=&quot; + path);
+}
+</code></pre>
+<p>在根znode下创建顺序子node</p>
+<pre><code class="language-java">public void createChild() throws KeeperException, InterruptedException {
+		String createPath = zk.create(ROOT_PATH + &quot;/node-&quot;, name.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+		System.out.println(&quot;Created:&quot; + createPath);
+		currentPath = createPath;
+}
+</code></pre>
+<p>获取children，并设置Watcher，判断最小子结点是否当前应用注册的结点</p>
+<pre><code class="language-java">public void getChildrenAndWatch() throws KeeperException, InterruptedException {
+		List&lt;String&gt; children = zk.getChildren(ROOT_PATH, event -&gt; {
+				// 子结点发生改变时，再次调用getChildren()
+				if (!this.isActive &amp;&amp; event.getType() == Watcher.Event.EventType.NodeChildrenChanged) {
+						try {
+								getChildrenAndWatch();
+						} catch (Exception e) {
+								e.printStackTrace();
+						}
+				}
+		});
+		Collections.sort(children);
+		System.out.println(&quot;子结点发生变化，当前子结点:&quot; + children);
+		if ((ROOT_PATH + &quot;/&quot; + children.get(0)).equals(currentPath)) {
+				System.out.println(&quot;获得锁&quot;);
+				this.isActive = true;
+				callBack.doCall();
+		} else {
+				System.out.println(&quot;未获取锁，等待下一次子结点变化&quot;);
+		}
+}
+</code></pre>
+<h3 id="总代码">总代码</h3>
+<pre><code class="language-java">public class MyHA implements Watcher {
+    private static final int TIME_OUT = 5000;
+    private ZooKeeper zk;
+    private CountDownLatch countDownLatch = new CountDownLatch(1);
+    /**
+     * 根目录
+     */
+    private static final String ROOT_PATH = &quot;/pusher&quot;;
+    /**
+     * zk host，多个用逗号分隔
+     */
+    private String zk_host;
+    /**
+     * 当前应用名称，用于注册当前激活的应用，便于在zk上查看
+     */
+    private String name;
+    /**
+     * 当前应用在zk上创建的短暂顺序znode
+     */
+    private String currentPath = &quot;&quot;;
+    /**
+     * 是否激活
+     */
+    private boolean isActive = false;
+
+    private CallBack callBack;
+
+    public MyHA(String name, String zk_host) {
+        this.zk_host = zk_host;
+        this.name = name;
+    }
+
+    /**
+     * 开始连接、注册并等待返回激动
+     *
+     * @param callBack 激活成功的回调函数
+     * @throws Exception
+     */
+    public void start(CallBack callBack) throws Exception {
+        System.out.println(&quot;name:&quot; + name);
+        this.callBack = callBack;
+        connect(zk_host);
+        createRoot();
+        createChild();
+        getChildrenAndWatch();
+    }
+
+    /**
+     * 连接zk,直到连接完成才返回
+     */
+    public void connect(String host) throws IOException, InterruptedException {
+        zk = new ZooKeeper(host, TIME_OUT, this);
+        countDownLatch.await();
+    }
+
+    /**
+     * 连接后，会被调用
+     *
+     * @param event
+     */
+    public void process(WatchedEvent event) {
+//        System.out.println(&quot;process:&quot; + event.getState() + &quot; &quot; + event.getType());
+        if (event.getState() == Watcher.Event.KeeperState.SyncConnected) {
+            countDownLatch.countDown();
+        }
+    }
+
+    public void close() throws InterruptedException {
+        zk.close();
+    }
+
+    public void createRoot() {
+        try {
+            if (zk.exists(ROOT_PATH, false) == null) {
+                String path = zk.create(ROOT_PATH, null, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+                System.out.println(&quot;create root=&quot; + path);
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    /**
+     * 创建临时顺序子节点
+     */
+    public void createChild() throws KeeperException, InterruptedException {
+        String createPath = zk.create(ROOT_PATH + &quot;/node-&quot;, name.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+        System.out.println(&quot;Created:&quot; + createPath);
+        currentPath = createPath;
+    }
+
+    /**
+     * 获取children，并设置Watcher，判断最小子结点是否当前应用注册的结点
+     */
+    public void getChildrenAndWatch() throws KeeperException, InterruptedException {
+        List&lt;String&gt; children = zk.getChildren(ROOT_PATH, event -&gt; {
+            // 子结点发生改变时，再次调用getChildren()
+            if (!this.isActive &amp;&amp; event.getType() == Watcher.Event.EventType.NodeChildrenChanged) {
+                try {
+                    getChildrenAndWatch();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        Collections.sort(children);
+        System.out.println(&quot;子结点发生变化，当前子结点:&quot; + children);
+        if ((ROOT_PATH + &quot;/&quot; + children.get(0)).equals(currentPath)) {
+            System.out.println(&quot;获得锁&quot;);
+            this.isActive = true;
+            callBack.doCall();
+        } else {
+            System.out.println(&quot;未获取锁，等待下一次子结点变化&quot;);
+        }
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        MyHA ha = new MyHA(&quot;node1&quot;, &quot;10.204.54.56:2181&quot;);
+        CountDownLatch countDown = new CountDownLatch(1);
+        ha.start(() -&gt; {
+            try {
+                System.out.println(&quot;doing ...&quot;);
+                TimeUnit.SECONDS.sleep(100000);
+                countDown.countDown();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        countDown.await();
+        ha.close();
+        System.out.println(&quot;done&quot;);
+    }
+}
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://liangsj.xyz//tag/-vZ7xDYls" class="tag">
+                    Zookeeper
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://liangsj.xyz//post/spark-helloworld">
+                  <h3 class="post-title">
+                    Spark Helloworld
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '8c5fcba2698cd92155b7',
+        clientSecret: '4f3a56e161e49069d65cea26df674b76908e2e0e',
+        repo: 'gitalk',
+        owner: 'trgree',
+        admin: ['trgree'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

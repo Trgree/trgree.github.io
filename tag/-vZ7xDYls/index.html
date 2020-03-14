@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>关于我 | Liangsj</title>
+<title>Zookeeper | Liangsj</title>
 <meta name="description" content="个人博客">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -13,12 +13,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://liangsj.xyz//styles/main.css">
 
-
-  
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
-
-  
 
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -106,41 +100,28 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <div class="post-detail">
-            <h2 class="post-title">关于我</h2>
-            <div class="post-date">2019-01-25</div>
-            
-            <div class="post-content">
-              <p>一个 Hadoop/Java 开发者，喜欢研究一些新技术。</p>
-<p>
-热爱编程，擅长于大数开发。
-<p>
-<h3> 我的博客 </h3>  
-<p>
-搭建博客，是希望日后可以记录自己的知识，提高自己的技术，并分享出来
-<p>
-欢迎对我的博客提出你的建议和意思，让我们一起学习
-<p>
-有关于博客主题的建议和意见都可以提给我，让我们一起来打造一个精美的主题吧~ 
-<p> 
-博客源码在 <a target="_blank" href='https://github.com/Trgree/trgree.github.io'>Github</a> 上，你的 Star 是我更新的动力，谢谢~
-<p> 
-<p>我的联系方式：trgree@foxmail.com</p>
-<a target="_blank" href='http://liangsj.xyz/panhx'>L&P</a>
-
-            </div>
-            
-            
-
-            
+          <h2 class="current-tag">标签: Zookeeper</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://liangsj.xyz//post/ji-yu-zookeeper-shi-xian-ying-yong-de-gao-ke-yong">
+                  <h2 class="post-title">基于Zookeeper实现应用的高可用</h2>
+                </a>
+                <div class="post-date">
+                  2020-03-14
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
               
-                <div id="gitalk-container" data-aos="fade-in"></div>
-              
+            </article>
+          
 
-              
-            
-
-          </div>
+          <div class="pagination-container">
+  
+  
+</div>
 
         </div>
       </div>
@@ -162,29 +143,6 @@ var app = new Vue({
 })
 
 </script>
-
-
-
-  
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
-
-      var gitalk = new Gitalk({
-        clientID: '8c5fcba2698cd92155b7',
-        clientSecret: '4f3a56e161e49069d65cea26df674b76908e2e0e',
-        repo: 'gitalk',
-        owner: 'trgree',
-        admin: ['trgree'],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
-
-      gitalk.render('gitalk-container')
-
-    </script>
-  
-
-  
 
 
 
