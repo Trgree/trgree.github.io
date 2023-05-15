@@ -60,11 +60,26 @@
             <audio src="./panhx/Love_files/love.mp3" autoplay="autoplay"></audio>
         </div> 
     
-    <script>
-    </script>
+
 
     <script type="javascript">
     (function(){
+        // 切换背景图
+        // window.timeInterval = 2000;
+        // window.curIndex = 0;
+        // window.arr = new Array();
+        // window.arr.push("./Love_files/bg.png");
+        // window.arr.push("./Love_files/bg2.jpeg");
+        // window.arr.push("./Love_files/bg3.jpeg");
+        // window.arr.push("./Love_files/bg4.jpeg");
+        // $('head').append("<style>body::before{background:transparent url(" + window.arr[ window.curIndex ] + ") center center no-repeat;}</style>");
+        // window.changeImg = function(){
+        //     window.curIndex = (window.curIndex+1) % window.arr.length;
+        //     $('head').append("<style>body::before{background:transparent url(" + window.arr[ window.curIndex ] + ") center center no-repeat;}</style>");
+        //     $("body").animate({ backgroundColor:color},1000);
+
+        // };
+        // setInterval(window.changeImg, window.timeInterval);
 
          $('head').append("<style>body::before{background:transparent url(./Love_files/bg.png) center center no-repeat;}</style>");
 
