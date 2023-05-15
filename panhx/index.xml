@@ -28,26 +28,26 @@
             <div id="wrap">
                <div id="text">
                     <div id="code">                 
-                    <span class="say">世界很大，遇见你真好，</span><br>
-                    <span class="say">爱情最好的样子，</span><br>
-					<span class="say">不是你有多优秀，我有多美好，</span><br>
-					<span class="say">而是我们正合适。</span><br>
-                    <span class="say">喜欢看动漫，喜欢看书，</span><br>
-					<span class="say">喜欢大汗淋漓的运动，喜欢跋山涉水的户外，</span><br>
-                    <span class="say">喜欢探讨历史也喜欢研究投资，</span><br>
-					<span class="say">一起做喜欢的事，享受其中的乐趣。</span><br>
-					<span class="say">喜欢做饭的我遇上不会做饭的你，</span><br>
-					<span class="say">爱好文字钻研的你，不懂技能，</span><br>
-                    <span class="say">喜欢研究技能的我，文字匮乏，</span><br>
-                    <span class="say">但我们都擅长数据分析，</span><br>
-                    <span class="say">遇见对的人，不早不晚，此刻最好。</span><br>
-					<br>
-                    <span class="say">我期待与你慢慢变老，</span><br>
-                    <span class="say">等我们老到哪儿也去不了，</span><br>
-                    <span class="say">还能满载着一生的幸福快乐 ！</span><br>
-                    <br>
-                    <span class="say">海虾，情人节快乐!</span><br>
-                   <br>
+                    <span class="say">世界很大，遇见你真好，</span><br/>
+                    <span class="say">爱情最好的样子，</span><br/>
+					<span class="say">不是你有多优秀，我有多美好，</span><br/>
+					<span class="say">而是我们正合适。</span><br/>
+                    <span class="say">喜欢看动漫，喜欢看书，</span><br/>
+					<span class="say">喜欢大汗淋漓的运动，喜欢跋山涉水的户外，</span><br/>
+                    <span class="say">喜欢探讨历史也喜欢研究投资，</span><br/>
+					<span class="say">一起做喜欢的事，享受其中的乐趣。</span><br/>
+					<span class="say">喜欢做饭的我遇上不会做饭的你，</span><br/>
+					<span class="say">爱好文字钻研的你，不懂技能，</span><br/>
+                    <span class="say">喜欢研究技能的我，文字匮乏，</span><br/>
+                    <span class="say">但我们都擅长数据分析，</span><br/>
+                    <span class="say">遇见对的人，不早不晚，此刻最好。</span><br/>
+					<br/>
+                    <span class="say">我期待与你慢慢变老，</span><br/>
+                    <span class="say">等我们老到哪儿也去不了，</span><br/>
+                    <span class="say">还能满载着一生的幸福快乐 ！</span><br/>
+                    <br/>
+                    <span class="say">海虾，情人节快乐!</span><br/>
+                   <br/>
                     <span class="say"><span class="space"></span> -- Yours, L.</span>
                     </div>
                 </div>
@@ -63,24 +63,8 @@
     <script>
     </script>
 
-    <script>
+    <script type="javascript">
     (function(){
-        // 切换背景图
-        // window.timeInterval = 2000;
-        // window.curIndex = 0;
-        // window.arr = new Array();
-        // window.arr.push("./Love_files/bg.png");
-        // window.arr.push("./Love_files/bg2.jpeg");
-        // window.arr.push("./Love_files/bg3.jpeg");
-        // window.arr.push("./Love_files/bg4.jpeg");
-        // $('head').append("<style>body::before{background:transparent url(" + window.arr[ window.curIndex ] + ") center center no-repeat;}</style>");
-        // window.changeImg = function(){
-        //     window.curIndex = (window.curIndex+1) % window.arr.length;
-        //     $('head').append("<style>body::before{background:transparent url(" + window.arr[ window.curIndex ] + ") center center no-repeat;}</style>");
-        //     $("body").animate({ backgroundColor:color},1000);
-            
-        // };
-        // setInterval(window.changeImg, window.timeInterval);
 
          $('head').append("<style>body::before{background:transparent url(./Love_files/bg.png) center center no-repeat;}</style>");
 
